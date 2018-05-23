@@ -8,13 +8,12 @@ package com.utfpr.persistencia.entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -32,24 +31,17 @@ public class Usuario implements Serializable {
 
     private int Age;
 
-    @ManyToMany
-    @JoinTable(name = "avaliacao",
-            joinColumns = {
-                @JoinColumn(name = "userID")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "isbn")})
-    private Set<Avaliacao> avaliacoes;
+     @OneToMany(cascade = CascadeType.ALL, mappedBy = "avaliacao")
+    private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
 
-    public Usuario() {
-        this.avaliacoes = new HashSet<Avaliacao>();
-    }
-
-    public Usuario(int userID, String location, int Age) {
-        this.avaliacoes = new HashSet<Avaliacao>();
-        this.userID = userID;
+    public Usuario(String location, int Age) {
         this.location = location;
         this.Age = Age;
     }
+
+    public Usuario() {
+    }
+
 
     public int getUserID() {
         return userID;

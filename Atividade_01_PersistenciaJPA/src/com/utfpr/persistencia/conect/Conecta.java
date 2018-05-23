@@ -15,6 +15,9 @@ import javax.persistence.Persistence;
  */
 public class Conecta {
 
+    public Conecta() {
+    }
+ 
     private static final EntityManagerFactory factory;
 
     static {

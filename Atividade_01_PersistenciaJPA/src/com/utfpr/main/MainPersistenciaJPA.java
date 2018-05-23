@@ -5,7 +5,6 @@
  */
 package com.utfpr.main;
 
-
 import com.utfpr.persistencia.util.Importacoes;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,19 +15,20 @@ import java.sql.SQLException;
  */
 public class MainPersistenciaJPA {
 
-    public MainPersistenciaJPA() throws SQLException, IOException {
+    public MainPersistenciaJPA() throws SQLException, IOException, Exception {
 
-       
         Importacoes i = new Importacoes();
         i.Importa();
     }
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException, IOException, Exception {
 
-        new MainPersistenciaJPA();
+        MainPersistenciaJPA mainPersistenciaJPA = new MainPersistenciaJPA();
 
     }
 

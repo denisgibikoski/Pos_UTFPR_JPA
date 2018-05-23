@@ -6,14 +6,13 @@
 package com.utfpr.persistencia.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -35,25 +34,20 @@ public class Livro implements Serializable {
 
     private String publisher;
 
-     @ManyToMany
-    @JoinTable(name = "avaliacao",
-            joinColumns = {
-                @JoinColumn(name = "userID")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "isbn")})
-    private Set<Avaliacao> avaliacoes;
+    @OneToMany(mappedBy = "avalicao")
+    private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
 
     public Livro() {
     }
 
-    public Livro(String isbn, String title, String author, int yearOfPublication, String publisher) {
-        this.isbn = isbn;
+    public Livro(String title, String author, int yearOfPublication, String publisher) {
         this.title = title;
         this.author = author;
         this.yearOfPublication = yearOfPublication;
         this.publisher = publisher;
     }
 
+   
     public String getIsbn() {
         return isbn;
     }

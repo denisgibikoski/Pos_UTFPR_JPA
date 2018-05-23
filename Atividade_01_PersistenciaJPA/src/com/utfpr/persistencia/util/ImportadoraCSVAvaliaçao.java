@@ -5,15 +5,19 @@
  */
 package com.utfpr.persistencia.util;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  *
  * @author denis
  */
 class ImportadoraCSVAvaliaçao {
 
-    void importaArquivo(String localArquivo) {
-     
-    
+    void importaArquivo(String localArquivo) throws FileNotFoundException, IOException {
+        
+       
+       
     }
     
 }

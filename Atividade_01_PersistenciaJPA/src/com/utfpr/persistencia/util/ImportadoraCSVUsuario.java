@@ -53,7 +53,9 @@ public class ImportadoraCSVUsuario {
             } else {
                idade = 0;
             }
-             Usuario usuario =  new Usuario(userId, colLocal, idade);  
+             Usuario usuario =  new Usuario();
+             
+            
              System.out.println(usuario.toString());
             System.out.println("Voce esta Aqui");
             UsuarioJpaController ujc = new UsuarioJpaController();

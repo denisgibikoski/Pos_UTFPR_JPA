@@ -60,9 +60,8 @@ class ImportadoraCSVLivros {
             String colpublishe = vetorArquivo[4].replaceAll("\"", "").toUpperCase();
             String publishe = colpublishe;
 
-            Livro livro = new Livro(isbn, titulo, autor, ano, publishe);
-            LivroJpaController ljc = new LivroJpaController();
-            ljc.create(livro);
+           
+          
 
             leitor.close();
         }

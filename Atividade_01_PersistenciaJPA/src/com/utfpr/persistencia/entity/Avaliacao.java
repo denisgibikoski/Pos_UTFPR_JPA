@@ -6,7 +6,6 @@
 package com.utfpr.persistencia.entity;
 
 import java.io.Serializable;
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -15,26 +14,7 @@ import javax.persistence.MapsId;
  *
  * @author denis
  */
-public class Avaliacao implements Serializable {
-    
-     @Embeddable
-    public static class key_Imp implements Serializable {
-
-        private int userID;
-        private String isbn;
-
-        public key_Imp() {
-        }
-
-        public key_Imp(int userID, String isbn) {
-            this.userID = userID;
-            this.isbn = isbn;
-        }
-
-        
-
-    }
-    
+public class Avaliacao implements Serializable {  
 
     @EmbeddedId
     private key_Imp id;
@@ -46,12 +26,12 @@ public class Avaliacao implements Serializable {
     @MapsId("isbn")
     private Livro livro;
 
-    private Double rating;
+    private int rating;
 
     public Avaliacao() {
     }
 
-    public Avaliacao(Usuario usuario, Livro livro, Double rating) {
+    public Avaliacao(Usuario usuario, Livro livro, int rating) {
         id = new key_Imp(usuario.getUserID(), livro.getIsbn());
         this.usuario = usuario;
         this.livro = livro;
@@ -82,11 +62,11 @@ public class Avaliacao implements Serializable {
         this.livro = livro;
     }
 
-    public Double getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
@@ -94,7 +74,5 @@ public class Avaliacao implements Serializable {
     public String toString() {
         return "Avaliacao{" + "id=" + id + ", usuario=" + usuario + ", livro=" + livro + ", rating=" + rating + '}';
     }
-    
-    
 
 }

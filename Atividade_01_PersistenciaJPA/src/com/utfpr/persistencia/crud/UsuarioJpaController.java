@@ -23,8 +23,7 @@ import javax.persistence.criteria.Root;
  */
 public class UsuarioJpaController implements Serializable {
 
-    EntityManagerFactory emf = (EntityManagerFactory) Conecta.getEntityManager();
-    EntityManager em = emf.createEntityManager();
+    EntityManager em = Conecta.getEntityManager();
     EntityTransaction et = null;
 
     public void create(Usuario usuario) throws Exception {

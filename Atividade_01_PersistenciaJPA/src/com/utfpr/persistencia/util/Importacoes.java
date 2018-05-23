@@ -17,40 +17,20 @@ import java.util.logging.Logger;
  */
 public class Importacoes {
 
-   public void Importa() throws SQLException {
+    public void Importa() throws SQLException, Exception {
 
-        //Mult Thread para importar 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // importa planilha User
-                ImportadoraCSVUsuario importCSV = new ImportadoraCSVUsuario();
-                try {
-                    importCSV.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Users.csv");
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Importacoes.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(Importacoes.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }).start();
-/*
-        new Thread(() -> {
+        // importa planilha User
+        ImportadoraCSVUsuario importCSV = new ImportadoraCSVUsuario();
+        importCSV.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Users.csv");
 
-            //importa Planilha Livro
-            ImportadoraCSVLivros livros = new ImportadoraCSVLivros();
-            livros.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Books-rev.csv");
+        //importa Planilha Livro
+        ImportadoraCSVLivros livros = new ImportadoraCSVLivros();
+        livros.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Books-rev.csv");
 
-        }).start();
+        //importa Planilha Avaliaçao
+        ImportadoraCSVAvaliaçao avaliaçao = new ImportadoraCSVAvaliaçao();
+        avaliaçao.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Book-Ratings.csv");
 
-        new Thread(() -> {
-
-            //importa Planilha Avaliaçao
-            ImportadoraCSVAvaliaçao avaliaçao = new ImportadoraCSVAvaliaçao();
-            avaliaçao.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Book-Ratings.csv");
-
-        }).start();
-*/
     }
 
 }
