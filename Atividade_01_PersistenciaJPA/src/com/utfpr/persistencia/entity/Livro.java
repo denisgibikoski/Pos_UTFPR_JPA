@@ -9,16 +9,19 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author denis
  */
 @Entity
+@Table(name = "livro")
 public class Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +37,7 @@ public class Livro implements Serializable {
 
     private String publisher;
 
-    @OneToMany(mappedBy = "avalicao")
+    @OneToMany(mappedBy = "livro", fetch = FetchType.LAZY)
     private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
 
     public Livro() {
@@ -47,7 +50,6 @@ public class Livro implements Serializable {
         this.publisher = publisher;
     }
 
-   
     public String getIsbn() {
         return isbn;
     }

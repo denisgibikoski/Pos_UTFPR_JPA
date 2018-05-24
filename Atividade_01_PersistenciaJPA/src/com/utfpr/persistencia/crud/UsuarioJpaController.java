@@ -5,15 +5,14 @@
  */
 package com.utfpr.persistencia.crud;
 
-import com.utfpr.persistencia.conect.Conecta;
 import com.utfpr.persistencia.entity.Usuario;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -23,7 +22,8 @@ import javax.persistence.criteria.Root;
  */
 public class UsuarioJpaController implements Serializable {
 
-    EntityManager em = Conecta.getEntityManager();
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAPU");
+    EntityManager em = emf.createEntityManager();
     EntityTransaction et = null;
 
     public void create(Usuario usuario) throws Exception {

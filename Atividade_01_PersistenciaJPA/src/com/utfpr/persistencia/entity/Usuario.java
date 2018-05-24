@@ -8,18 +8,19 @@ package com.utfpr.persistencia.entity;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author denis
  */
 @Entity
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,8 +32,8 @@ public class Usuario implements Serializable {
 
     private int Age;
 
-     @OneToMany(cascade = CascadeType.ALL, mappedBy = "avaliacao")
-    private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
+     @OneToMany(mappedBy = "usuario")
+     private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
 
     public Usuario(String location, int Age) {
         this.location = location;

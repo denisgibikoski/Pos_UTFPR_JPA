@@ -12,6 +12,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +31,7 @@ public class ImportadoraCSVUsuario {
         BufferedReader leitor = new BufferedReader(new InputStreamReader(new FileInputStream(arquivo)));
         String linha = null;
         int idade; 
+        List<Usuario> arquivoTeste = new ArrayList<>();
         // laço para popular o Usuario, usamos um vetor para realizar as conversoes e retirar caracteres desnecessários.
         while ((linha = leitor.readLine()) != null) {
             String[] vetorArquivo = linha.split(";");
@@ -53,21 +58,22 @@ public class ImportadoraCSVUsuario {
             } else {
                idade = 0;
             }
-             Usuario usuario =  new Usuario();
-             
+             // Criando e populando um Array com os dados do arquivo csv...
+             arquivoTeste.add(new Usuario(local, idade));
             
-             System.out.println(usuario.toString());
-            System.out.println("Voce esta Aqui");
-            UsuarioJpaController ujc = new UsuarioJpaController();
-            
-           
-            System.out.println(usuario.toString());
-           
-            ujc.create(usuario);
-            
-       leitor.close();
+      
         }
-        
+         leitor.close();
+         
+       arquivoTeste.forEach((Usuario u) -> {
+           UsuarioJpaController jpaController = new UsuarioJpaController();
+           System.out.println(u.toString());
+             try {
+                 jpaController.create(u);
+             } catch (Exception ex) {
+                 Logger.getLogger(ImportadoraCSVUsuario.class.getName()).log(Level.SEVERE, null, ex);
+             }
+       });
         
         
         

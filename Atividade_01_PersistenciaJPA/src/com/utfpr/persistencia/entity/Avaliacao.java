@@ -7,13 +7,18 @@ package com.utfpr.persistencia.entity;
 
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Table;
 
 /**
  *
  * @author denis
  */
+@Entity
+@Table(name = "avaliacao")
 public class Avaliacao implements Serializable {  
 
     @EmbeddedId
@@ -23,7 +28,7 @@ public class Avaliacao implements Serializable {
     @MapsId("userID")
     private Usuario usuario;
     @ManyToOne
-    @MapsId("isbn")
+    @MapsId("isbn")   
     private Livro livro;
 
     private int rating;
