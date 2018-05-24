@@ -28,10 +28,8 @@ public class UsuarioJpaController implements Serializable {
 
     public void create(Usuario usuario) throws Exception {
 
-        try {
-            if (findUsuario(usuario.getUserID()) == usuario) {
-                edit(usuario);
-            } else {
+      try{
+           
 
                 et = em.getTransaction();
                 et.begin();
@@ -39,14 +37,14 @@ public class UsuarioJpaController implements Serializable {
                 em.persist(usuario);
 
                 et.commit();
-            }
-
-        } finally {
-            if (em != null) {
+          } finally {
+            
                 em.close();
-            }
+              
+           }
+       
         }
-    }
+    
 
     public void edit(Usuario usuario) throws Exception {
 
@@ -63,9 +61,9 @@ public class UsuarioJpaController implements Serializable {
             }
             throw ex;
         } finally {
-            if (em != null) {
+           
                 em.close();
-            }
+            
         }
     }
 
@@ -82,9 +80,9 @@ public class UsuarioJpaController implements Serializable {
             em.remove(usuario);
             et.commit();
         } finally {
-            if (em != null) {
+           
                 em.close();
-            }
+            
         }
     }
 

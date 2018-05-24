@@ -5,7 +5,6 @@
  */
 package com.utfpr.persistencia.util;
 
-import com.utfpr.persistencia.crud.LivroJpaController;
 import com.utfpr.persistencia.entity.Livro;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,6 +13,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -59,12 +64,36 @@ class ImportadoraCSVLivros {
             // String publishe
             String colpublishe = vetorArquivo[4].replaceAll("\"", "").toUpperCase();
             String publishe = colpublishe;
+            Livro l  = new Livro();
+            l.setIsbn(isbn);
+            l.setAuthor(autor);
+            l.setPublisher(publishe);
+            l.setTitle(titulo);
+            l.setYearOfPublication(ano);
+            
+            arquivoTeste.add(l);
 
-           
-          
-
-            leitor.close();
         }
-    }
+        leitor.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAPU");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = null;
 
+        et = em.getTransaction();
+        et.begin();
+
+        arquivoTeste.forEach((Livro l) -> {
+            try {
+
+                em.persist(l);
+
+            } catch (Exception ex) {
+                Logger.getLogger(ImportadoraCSVUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        et.commit();
+        em.close();
+
+    }
 }
+
