@@ -66,13 +66,12 @@ public class ImportadoraCSVUsuario {
 
         }
         leitor.close();
-           Boolean tesBoolean ;
+
         arquivoTeste.forEach((Usuario u) -> {
             try {
                 UsuarioJpaController ujc = new UsuarioJpaController();
-                
-                ujc.findUsuario(u.getUserID());
 
+                ujc.create(u);
             } catch (Exception ex) {
                 Logger.getLogger(ImportadoraCSVUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }

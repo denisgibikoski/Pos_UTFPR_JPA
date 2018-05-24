@@ -67,7 +67,6 @@ class ImportadoraCSVLivros {
             l.setPublisher(publishe);
             l.setTitle(titulo);
             l.setYearOfPublication(ano);
-            
 
             arquivoTeste.add(l);
 
@@ -75,8 +74,7 @@ class ImportadoraCSVLivros {
         leitor.close();
         arquivoTeste.forEach((Livro l) -> {
             try {
-                
-                System.out.println(l.toString());
+
                 LivroJpaController ljc = new LivroJpaController();
                 ljc.create(l);
 
