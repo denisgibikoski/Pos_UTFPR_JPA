@@ -14,13 +14,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -71,26 +66,17 @@ public class ImportadoraCSVUsuario {
 
         }
         leitor.close();
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAPU");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction et = null;
-
-        et = em.getTransaction();
-        et.begin();
-
+           Boolean tesBoolean ;
         arquivoTeste.forEach((Usuario u) -> {
             try {
-
-                em.persist(u);
+                UsuarioJpaController ujc = new UsuarioJpaController();
+                
+                ujc.findUsuario(u.getUserID());
 
             } catch (Exception ex) {
                 Logger.getLogger(ImportadoraCSVUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        et.commit();
-        em.close();
-
     }
 
 }

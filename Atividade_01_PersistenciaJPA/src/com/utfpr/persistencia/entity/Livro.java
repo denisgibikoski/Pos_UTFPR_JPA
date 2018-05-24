@@ -26,6 +26,8 @@ public class Livro implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    
     private String isbn;
 
     private String title;
@@ -42,11 +44,20 @@ public class Livro implements Serializable {
     public Livro() {
     }
 
-    public Livro(String title, String author, int yearOfPublication, String publisher) {
+    public Livro(String isbn, String title, String author, int yearOfPublication, String publisher) {
+        this.isbn = isbn;
         this.title = title;
         this.author = author;
         this.yearOfPublication = yearOfPublication;
         this.publisher = publisher;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIsbn() {
@@ -99,7 +110,8 @@ public class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "Livro{" + "isbn=" + isbn + ", title=" + title + ", author=" + author + ", yearOfPublication=" + yearOfPublication + ", publisher=" + publisher + ", avaliacoes=" + avaliacoes + '}';
+        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", title=" + title + ", author=" + author + ", yearOfPublication=" + yearOfPublication + ", publisher=" + publisher + ", avaliacoes=" + avaliacoes + '}';
     }
 
+    
 }

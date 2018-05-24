@@ -16,16 +16,19 @@ public class Importacoes {
     public void Importa() throws SQLException, Exception {
 
         // importa planilha User
-        ImportadoraCSVUsuario importCSV = new ImportadoraCSVUsuario();
-        importCSV.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Users.csv");
+      //ImportadoraCSVUsuario importCSV = new ImportadoraCSVUsuario();
+       // importCSV.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Users.csv");
 
+       
         //importa Planilha Livro
-        ImportadoraCSVLivros livros = new ImportadoraCSVLivros();
-        livros.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Books-rev.csv");
+       //ImportadoraCSVLivros livros = new ImportadoraCSVLivros();
+       //livros.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Books-rev2.csv");
 
         //importa Planilha Avaliaçao
-        ImportadoraCSVAvaliaçao avaliaçao = new ImportadoraCSVAvaliaçao();
-        avaliaçao.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Book-Ratings.csv");
+       ImportadoraCSVAvaliaçao avaliaçao = new ImportadoraCSVAvaliaçao();
+       avaliaçao.importaArquivo("/home/denis/Documentos/Pos Java/atividade pos percistencia/BX-CSV-Dump/BX-Book-Ratings.csv");
+
+          
 
     }
 

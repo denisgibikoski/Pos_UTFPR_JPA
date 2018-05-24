@@ -28,23 +28,15 @@ public class UsuarioJpaController implements Serializable {
 
     public void create(Usuario usuario) throws Exception {
 
-      try{
-           
+        et = em.getTransaction();
+        et.begin();
 
-                et = em.getTransaction();
-                et.begin();
+        em.persist(usuario);
 
-                em.persist(usuario);
+        et.commit();
 
-                et.commit();
-          } finally {
-            
-                em.close();
-              
-           }
-       
-        }
-    
+        em.close();
+    }
 
     public void edit(Usuario usuario) throws Exception {
 
@@ -61,29 +53,26 @@ public class UsuarioJpaController implements Serializable {
             }
             throw ex;
         } finally {
-           
-                em.close();
-            
+
+            em.close();
+
         }
     }
 
     public void destroy(int id) {
 
-        try {
-            et = em.getTransaction();
-            et.begin();
-            Usuario usuario;
+        et = em.getTransaction();
+        et.begin();
+        Usuario usuario;
 
-            usuario = em.getReference(Usuario.class, id);
-            usuario.getUserID();
+        usuario = em.getReference(Usuario.class, id);
+        usuario.getUserID();
 
-            em.remove(usuario);
-            et.commit();
-        } finally {
-           
-                em.close();
-            
-        }
+        em.remove(usuario);
+        et.commit();
+
+        em.close();
+
     }
 
     public List<Usuario> findUsuarioEntities() {

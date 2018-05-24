@@ -5,7 +5,8 @@
  */
 package com.utfpr.persistencia.crud;
 
-import com.utfpr.persistencia.entity.Livro;
+import com.utfpr.persistencia.entity.Avaliacao;
+import com.utfpr.persistencia.entity.key_Imp;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,18 +21,18 @@ import javax.persistence.criteria.Root;
  *
  * @author denis
  */
-public class LivroJpaController implements Serializable {
+public class AvaliacaoJpaController implements Serializable {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAPU");
     EntityManager em = emf.createEntityManager();
     EntityTransaction et = null;
 
-    public void create(Livro livro) throws Exception {
+    public void create(Avaliacao avaliacao) throws Exception {
 
         et = em.getTransaction();
         et.begin();
 
-        em.persist(livro);
+        em.persist(avaliacao);
 
         et.commit();
 
@@ -39,16 +40,16 @@ public class LivroJpaController implements Serializable {
 
     }
 
-    public void edit(Livro livro) throws Exception {
+    public void edit(Avaliacao avaliacao) throws Exception {
         et = em.getTransaction();
         et.begin();
         try {
-            livro = em.merge(livro);
+            avaliacao = em.merge(avaliacao);
             et.commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = livro.getIsbn();
+                key_Imp id = avaliacao.getId();
             }
 
             em.close();
@@ -60,12 +61,12 @@ public class LivroJpaController implements Serializable {
         et = em.getTransaction();
         et.begin();
         try {
-            Livro livro;
+            Avaliacao avaliacao;
 
-            livro = em.getReference(Livro.class, id);
-            livro.getIsbn();
+            avaliacao = em.getReference(Avaliacao.class, id);
+            avaliacao.getId();
 
-            em.remove(livro);
+            em.remove(avaliacao);
             et.commit();
         } finally {
             if (em != null) {
@@ -74,20 +75,20 @@ public class LivroJpaController implements Serializable {
         }
     }
 
-    public List<Livro> findLivroEntities() {
-        return findLivroEntities(true, -1, -1);
+    public List<Avaliacao> findAvaliacaoEntities() {
+        return findAvaliacaoEntities(true, -1, -1);
     }
 
-    public List<Livro> findLivroEntities(int maxResults, int firstResult) {
-        return findLivroEntities(false, maxResults, firstResult);
+    public List<Avaliacao> findAvaliacaoEntities(int maxResults, int firstResult) {
+        return findAvaliacaoEntities(false, maxResults, firstResult);
     }
 
-    private List<Livro> findLivroEntities(boolean all, int maxResults, int firstResult) {
+    private List<Avaliacao> findAvaliacaoEntities(boolean all, int maxResults, int firstResult) {
         et = em.getTransaction();
         et.begin();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Livro.class));
+            cq.select(cq.from(Avaliacao.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -99,22 +100,22 @@ public class LivroJpaController implements Serializable {
         }
     }
 
-    public Livro findLivro(String id) {
+    public Avaliacao findAvaliacao(String id) {
         et = em.getTransaction();
         et.begin();
         try {
-            return em.find(Livro.class, id);
+            return em.find(Avaliacao.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getLivroCount() {
+    public int getAvaliacaoCount() {
         et = em.getTransaction();
         et.begin();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Livro> rt = cq.from(Livro.class);
+            Root<Avaliacao> rt = cq.from(Avaliacao.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

@@ -5,6 +5,7 @@
  */
 package com.utfpr.persistencia.util;
 
+import com.utfpr.persistencia.crud.LivroJpaController;
 import com.utfpr.persistencia.entity.Livro;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -15,10 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -36,7 +33,7 @@ class ImportadoraCSVLivros {
         // laço para popular o Usuario, usamos um vetor para realizar as conversoes e retirar caracteres desnecessários.
         List<Livro> arquivoTeste = new ArrayList<>();
         while ((linha = leitor.readLine()) != null) {
-            String[] vetorArquivo = linha.split(";");
+            String[] vetorArquivo = linha.split(",");
             // String isbn;
             String colisbn = vetorArquivo[0].replaceAll("\"", "").toUpperCase();
             String isbn = colisbn;
@@ -52,7 +49,7 @@ class ImportadoraCSVLivros {
             // lint yearOfPublication
             int tamVetor = vetorArquivo.length;
             String colAge = "";
-            if (tamVetor == 4) {
+            if (tamVetor == 5) {
                 colAge = vetorArquivo[3].replaceAll("[^0-9]", "");
 
                 if (colAge.equalsIgnoreCase("")) {
@@ -64,36 +61,29 @@ class ImportadoraCSVLivros {
             // String publishe
             String colpublishe = vetorArquivo[4].replaceAll("\"", "").toUpperCase();
             String publishe = colpublishe;
-            Livro l  = new Livro();
+            Livro l = new Livro();
             l.setIsbn(isbn);
             l.setAuthor(autor);
             l.setPublisher(publishe);
             l.setTitle(titulo);
             l.setYearOfPublication(ano);
             
+
             arquivoTeste.add(l);
 
         }
         leitor.close();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAPU");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction et = null;
-
-        et = em.getTransaction();
-        et.begin();
-
         arquivoTeste.forEach((Livro l) -> {
             try {
-
-                em.persist(l);
+                
+                System.out.println(l.toString());
+                LivroJpaController ljc = new LivroJpaController();
+                ljc.create(l);
 
             } catch (Exception ex) {
                 Logger.getLogger(ImportadoraCSVUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        et.commit();
-        em.close();
 
     }
 }
-

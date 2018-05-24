@@ -5,6 +5,7 @@
  */
 package com.utfpr.persistencia.util;
 
+import com.utfpr.persistencia.crud.AvaliacaoJpaController;
 import com.utfpr.persistencia.entity.Avaliacao;
 import com.utfpr.persistencia.entity.Livro;
 import com.utfpr.persistencia.entity.Usuario;
@@ -28,8 +29,8 @@ import javax.persistence.Persistence;
  */
 class ImportadoraCSVAvaliaçao {
 
-    void importaArquivo(String localArquivo) throws FileNotFoundException, IOException  {
-        
+    void importaArquivo(String localArquivo) throws FileNotFoundException, IOException {
+
         String arquivo = localArquivo;
         // Criação do objeto leito para executar a leitura de um arquivo csv
         BufferedReader leitor = new BufferedReader(new InputStreamReader(new FileInputStream(arquivo)));
@@ -37,59 +38,53 @@ class ImportadoraCSVAvaliaçao {
         int nota = 0;
         // laço para popular o Usuario, usamos um vetor para realizar as conversoes e retirar caracteres desnecessários.
         List<Avaliacao> arquivoTeste = new ArrayList<>();
-            while ((linha = leitor.readLine()) != null) {
-                String[] vetorArquivo = linha.split(";");
-                // apaga os caracteres != de numeral.
-                String colUser = vetorArquivo[0].replaceAll("[^0-9]", "");
-                Usuario u = new Usuario();
-                if (colUser.equalsIgnoreCase("")) {
-                    u.setUserID(0);
-                } else {
-                    u.setUserID(Integer.parseInt(colUser));
-                }
-                // limpa as aspas
-                Livro l = new Livro();
-                String colLocal = vetorArquivo[1].replaceAll("\"", "").toUpperCase();
-                l.setIsbn(colLocal);
-                // limpa as àspas e quando for valor igual a NULL atribui 0 para nota.
-                int tamVetor = vetorArquivo.length;
-                if (tamVetor ==3) {
-                    String colAge = vetorArquivo[2].replaceAll("[^0-9]", "");
-                    if (colAge.equalsIgnoreCase("")) {
-                        nota = 0;
-                    } else {
-                        nota= Integer.parseInt(colAge);
-                    }
-                } else {
-                    nota = 0;
-                }
-           arquivoTeste.add(new Avaliacao(u,l, nota));
+        while ((linha = leitor.readLine()) != null) {
+            String[] vetorArquivo = linha.split(";");
+            // apaga os caracteres != de numeral.
+            String colUser = vetorArquivo[0].replaceAll("[^0-9]", "");
+            Usuario u = new Usuario();
+            if (colUser.equalsIgnoreCase("")) {
+                u.setUserID(0);
+            } else {
+                u.setUserID(Integer.parseInt(colUser));
             }
-             
-        leitor.close();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAPU");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction et = null;
+            // limpa as aspas
+            Livro l = new Livro();
+            String colLocal = vetorArquivo[1].replaceAll("\"", "").toUpperCase();
+            l.setIsbn(colLocal);
+            // limpa as àspas e quando for valor igual a NULL atribui 0 para nota.
+            int tamVetor = vetorArquivo.length;
+            if (tamVetor == 3) {
+                String colAge = vetorArquivo[2].replaceAll("[^0-9]", "");
+                if (colAge.equalsIgnoreCase("")) {
+                    nota = 0;
+                } else {
+                    nota = Integer.parseInt(colAge);
+                }
+            } else {
+                nota = 0;
+            }
+            Avaliacao a = new Avaliacao();
+            a.setLivro(l);
+            a.setUsuario(u);
+            a.setRating(nota);
 
-        et = em.getTransaction();
-        et.begin();
+            arquivoTeste.add(a);
+        }
+
+        leitor.close();
 
         arquivoTeste.forEach((Avaliacao a) -> {
             try {
-
-                em.persist(a);
+                System.out.println(a.toString());
+                AvaliacaoJpaController ajc = new AvaliacaoJpaController();
+                ajc.create(a);
 
             } catch (Exception ex) {
                 Logger.getLogger(ImportadoraCSVLivros.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        et.commit();
-        em.close();
 
-        
-        
-        
-        }
-       
-       
     }
+
+}

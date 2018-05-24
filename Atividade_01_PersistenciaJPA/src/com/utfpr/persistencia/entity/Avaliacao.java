@@ -6,8 +6,10 @@
 package com.utfpr.persistencia.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -78,5 +80,7 @@ public class Avaliacao implements Serializable {
     public String toString() {
         return "Avaliacao{" + "id=" + id + ", usuario=" + usuario + ", livro=" + livro + ", rating=" + rating + '}';
     }
+
+   
 
 }
