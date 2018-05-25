@@ -14,20 +14,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author denis
  */
 @Entity
-@Table(name = "livro")
+@Table(name = "livro", uniqueConstraints = { @UniqueConstraint( columnNames = "isbn" ) }  )
 public class Livro implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1l;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
     private String isbn;
 
     private String title;
@@ -50,14 +48,6 @@ public class Livro implements Serializable {
         this.author = author;
         this.yearOfPublication = yearOfPublication;
         this.publisher = publisher;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getIsbn() {
@@ -110,8 +100,7 @@ public class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "Livro{" + "id=" + id + ", isbn=" + isbn + ", title=" + title + ", author=" + author + ", yearOfPublication=" + yearOfPublication + ", publisher=" + publisher + ", avaliacoes=" + avaliacoes + '}';
+        return "Livro{" + ", isbn=" + isbn + ", title=" + title + ", author=" + author + ", yearOfPublication=" + yearOfPublication + ", publisher=" + publisher + ", avaliacoes=" + avaliacoes + '}';
     }
 
-    
 }

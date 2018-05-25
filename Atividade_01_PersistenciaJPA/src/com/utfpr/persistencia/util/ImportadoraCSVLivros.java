@@ -36,7 +36,7 @@ class ImportadoraCSVLivros {
             String[] vetorArquivo = linha.split(",");
             // String isbn;
             String colisbn = vetorArquivo[0].replaceAll("\"", "").toUpperCase();
-            String isbn = colisbn;
+           String isbn =  colisbn;
 
             // String title
             String coltitulo = vetorArquivo[1].replaceAll("\"", "").toUpperCase();
@@ -67,7 +67,7 @@ class ImportadoraCSVLivros {
             l.setPublisher(publishe);
             l.setTitle(titulo);
             l.setYearOfPublication(ano);
-
+        
             arquivoTeste.add(l);
 
         }

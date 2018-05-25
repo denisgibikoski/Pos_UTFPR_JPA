@@ -18,10 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 /**
  *
@@ -68,7 +64,6 @@ class ImportadoraCSVAvaliaçao {
             a.setLivro(l);
             a.setUsuario(u);
             a.setRating(nota);
-
             arquivoTeste.add(a);
         }
 
@@ -76,7 +71,7 @@ class ImportadoraCSVAvaliaçao {
 
         arquivoTeste.forEach((Avaliacao a) -> {
             try {
-                System.out.println(a.toString());
+
                 AvaliacaoJpaController ajc = new AvaliacaoJpaController();
                 ajc.create(a);
 

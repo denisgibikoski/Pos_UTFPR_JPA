@@ -5,10 +5,12 @@
  */
 package com.utfpr.main;
 
+import com.utfpr.persistencia.entity.Livro;
 import com.utfpr.persistencia.pesquisa.PesquisasImpl;
 import com.utfpr.persistencia.pesquisa.InterfacePesquisas;
 import com.utfpr.persistencia.util.Importacoes;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -16,12 +18,25 @@ import java.io.IOException;
  */
 public class MainPersistenciaJPA {
 
-    public MainPersistenciaJPA() throws Exception  {
+    public MainPersistenciaJPA() throws Exception {
 
-        Importacoes i = new Importacoes();
-        i.Importa();                      
         
-       
+        /* importacoes veitas
+        Importacoes i = new Importacoes();
+        i.Importa();
+        */
+        
+        //Liste todos os livros.
+        InterfacePesquisas ip = new PesquisasImpl();
+
+        List<Livro> list = ip.getTodosLivros();
+
+        list.forEach(System.out::println);
+        
+        String pais = "Brasil";
+        
+        int resultado = ip.getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(pais);
+        
         
     }
 
@@ -30,7 +45,7 @@ public class MainPersistenciaJPA {
      * @throws java.io.IOException
      *
      */
-    public static void main(String[] args) throws IOException, Exception  {
+    public static void main(String[] args) throws IOException, Exception {
 
         MainPersistenciaJPA mainPersistenciaJPA = new MainPersistenciaJPA();
 
