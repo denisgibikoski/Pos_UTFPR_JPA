@@ -5,6 +5,8 @@
  */
 package com.utfpr.main;
 
+import com.utfpr.persistencia.pesquisa.PesquisasImpl;
+import com.utfpr.persistencia.pesquisa.InterfacePesquisas;
 import com.utfpr.persistencia.util.Importacoes;
 import java.io.IOException;
 
@@ -17,7 +19,10 @@ public class MainPersistenciaJPA {
     public MainPersistenciaJPA() throws Exception  {
 
         Importacoes i = new Importacoes();
-        i.Importa();
+        i.Importa();                      
+        
+       
+        
     }
 
     /**
