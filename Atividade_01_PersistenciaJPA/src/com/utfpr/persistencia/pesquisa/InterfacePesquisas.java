@@ -19,7 +19,7 @@ public interface InterfacePesquisas {
     public List<Livro> getTodosLivros();
 
     //Dado um nome de paı́s X, a quantidade de usuários que avaliaram pelo menos 2 livros.
-    public int getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(String pais);
+    public void getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(String pais);
 
     //Liste os tı́tulos dos livros que brasileiros avaliaram e as suas notas.
     //Liste os tı́tulos dos X livros livros mais bem avaliados no ano Y.

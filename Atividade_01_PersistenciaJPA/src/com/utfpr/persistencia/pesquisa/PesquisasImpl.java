@@ -8,8 +8,10 @@ package com.utfpr.persistencia.pesquisa;
 import com.utfpr.persistencia.conexao.Conect;
 import com.utfpr.persistencia.crud.LivroJpaController;
 import com.utfpr.persistencia.entity.Livro;
+import com.utfpr.persistencia.entity.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -26,24 +28,26 @@ public class PesquisasImpl implements InterfacePesquisas {
 
         List<Livro> todoslivros = ljc.findLivroEntities();
 
-        return todoslivros;
+        todoslivros.forEach(System.out::println);
+        return null;
 
     }
 
     //Dado um nome de paı́s X, a quantidade de usuários que avaliaram pelo menos 2 livros.
     @Override
-    public int getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(String pais) {
-        
-        EntityManager  em  = Conect.getEntityManager();
+    public void getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(String pais) {
+
+        EntityManager em = Conect.getEntityManager();
+
+        String consulta = "select count(u) from Usuario u where u.location like :pais";
 
         
-        String consulta = "SELECT COUNT(a) FROM Aluno a";
+        Query query = em.createQuery(consulta);
+        query.setParameter("pais", pais);
 
-        TypedQuery<Integer> query = (TypedQuery<Integer>) em.createQuery(consulta);
+        Long quantidade = (Long) query.getSingleResult();
+        System.out.println(quantidade);
 
-        int resultado = query.getSingleResult();
-
-        return resultado;
     }
 
 }

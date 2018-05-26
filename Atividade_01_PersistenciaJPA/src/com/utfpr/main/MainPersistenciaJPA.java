@@ -25,18 +25,18 @@ public class MainPersistenciaJPA {
         Importacoes i = new Importacoes();
         i.Importa();
         */
-        
+        List<Livro> list = null;
         //Liste todos os livros.
         InterfacePesquisas ip = new PesquisasImpl();
 
-        List<Livro> list = ip.getTodosLivros();
+       //ip.getTodosLivros();
 
-        list.forEach(System.out::println);
         
-        String pais = "Brasil";
         
-        int resultado = ip.getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(pais);
+        String pais = "usa";
         
+       ip.getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(pais);
+       
         
     }
 
