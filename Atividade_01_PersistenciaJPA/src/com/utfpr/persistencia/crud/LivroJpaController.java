@@ -5,6 +5,7 @@
  */
 package com.utfpr.persistencia.crud;
 
+import com.utfpr.persistencia.conexao.Conect;
 import com.utfpr.persistencia.entity.Livro;
 import java.io.Serializable;
 import java.util.List;
@@ -22,8 +23,7 @@ import javax.persistence.criteria.Root;
  */
 public class LivroJpaController implements Serializable {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPAPU");
-    EntityManager em = emf.createEntityManager();
+   EntityManager em = Conect.getEntityManager();
     EntityTransaction et = null;
 
     public void create(Livro livro) throws Exception {

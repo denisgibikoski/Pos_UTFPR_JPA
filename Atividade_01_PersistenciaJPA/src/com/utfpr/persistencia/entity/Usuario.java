@@ -32,8 +32,8 @@ public class Usuario implements Serializable {
 
     private int Age;
 
-     @OneToMany(mappedBy = "usuario")
-     private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
+    @OneToMany(mappedBy = "usuario")
+    private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
 
     public Usuario(int userID, String location, int Age) {
         this.userID = userID;
@@ -41,11 +41,8 @@ public class Usuario implements Serializable {
         this.Age = Age;
     }
 
-   
-
     public Usuario() {
     }
-
 
     public int getUserID() {
         return userID;

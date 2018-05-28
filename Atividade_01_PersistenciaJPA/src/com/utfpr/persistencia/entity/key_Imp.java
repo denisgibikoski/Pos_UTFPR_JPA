@@ -12,18 +12,18 @@ import javax.persistence.Embeddable;
  *
  * @author denis
  */
- @Embeddable
-    public class key_Imp implements Serializable {
+@Embeddable
+public class key_Imp implements Serializable {
 
-        private int userID;
-        private String isbn;
+    private int userID;
+    private String isbn;
 
-        public key_Imp() {
-        }
-
-        public key_Imp(int userID, String isbn) {
-            this.userID = userID;
-            this.isbn = isbn;
-        }
-
+    public key_Imp() {
     }
+
+    public key_Imp(int userID, String isbn) {
+        this.userID = userID;
+        this.isbn = isbn;
+    }
+
+}
