@@ -39,14 +39,24 @@ public class PesquisasImpl implements InterfacePesquisas {
 
         EntityManager em = Conect.getEntityManager();
 
-        String consulta = "select count(u) from Usuario u where u.location like :pais";
+        String consulta = "select count(u) "
+                + " from Usuario u "
+                + "where u.location like :pais";
+                           
+               
 
         
         Query query = em.createQuery(consulta);
-        query.setParameter("pais", pais);
+        query.setParameter("pais", "%" + pais + "%");
 
         Long quantidade = (Long) query.getSingleResult();
         System.out.println(quantidade);
+
+    }
+
+    //Para cada editora, o número de livros cadastrados.
+    @Override
+    public void getEditoraLivrosCadastrados() {
 
     }
 
