@@ -33,9 +33,12 @@ public class MainPersistenciaJPA {
 
         
         
-        String pais = "usa";
+        String pais = "BRA";
         
        ip.getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(pais);
+       
+       ip.getEditoraLivrosCadastrados();
+       
        
         
     }

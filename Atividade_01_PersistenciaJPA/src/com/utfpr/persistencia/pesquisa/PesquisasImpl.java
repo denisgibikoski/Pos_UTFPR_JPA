@@ -9,6 +9,7 @@ import com.utfpr.persistencia.conexao.Conect;
 import com.utfpr.persistencia.crud.LivroJpaController;
 import com.utfpr.persistencia.entity.Livro;
 import com.utfpr.persistencia.entity.Usuario;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -19,6 +20,8 @@ import javax.persistence.TypedQuery;
  * @author denis
  */
 public class PesquisasImpl implements InterfacePesquisas {
+
+    EntityManager em = Conect.getEntityManager();
 
     //Liste todos os livros.
     @Override
@@ -37,16 +40,34 @@ public class PesquisasImpl implements InterfacePesquisas {
     @Override
     public void getPorPaisPegaQuantidadeDeUsuariodeAvaLiarao2Livros(String pais) {
 
-        EntityManager em = Conect.getEntityManager();
+        String consulta = "select count(u) "
+                + " from Usuario u "
+                + "where u.location like :pais";
 
-        String consulta = "select count(u) from Usuario u where u.location like :pais";
-
-        
         Query query = em.createQuery(consulta);
-        query.setParameter("pais", pais);
+        query.setParameter("pais", "%" + pais + "%");
 
         Long quantidade = (Long) query.getSingleResult();
         System.out.println(quantidade);
+
+    }
+
+    //Para cada editora, o número de livros cadastrados.
+    @Override
+    public void getEditoraLivrosCadastrados() {
+
+        String consulta = "SELECT l.publisher, count(l)"
+                + "from Livro as l "
+                + "GROUP BY l.publisher";
+
+        Query query = em.createQuery(consulta, Livro.class);
+
+        @SuppressWarnings("unchecked")
+        List<Object[]> ListObject = query.getResultList();
+
+        ListObject.forEach((Object[] l) -> {
+            System.out.println(Arrays.toString(l));
+        });
 
     }
 

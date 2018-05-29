@@ -25,6 +25,8 @@ public interface InterfacePesquisas {
     //Liste os tı́tulos dos X livros livros mais bem avaliados no ano Y.
     //Para cada autor, liste o número de livros avaliados e sua média de nota.
     //Para cada editora, o número de livros cadastrados.
+    public void getEditoraLivrosCadastrados();
+    
     //O número de livros classificados em cada nota de avaliação.
     //Os tı́tulos e autores dos X livros com média de nota maior que Y.
     //Os tı́tulos dos livros, a idade mı́nima, máxima e a média dos usuários que o avaliaram.
